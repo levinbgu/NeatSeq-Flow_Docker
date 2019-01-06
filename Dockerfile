@@ -70,8 +70,6 @@ RUN ./inst_sge -m -x -s -auto ~/sge_auto_install.conf \
 && /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf \
 && /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf
 
-ENV PATH /opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH
-RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH >> /etc/bashrc
 
 # return to home directory
 WORKDIR $HOME
@@ -113,12 +111,16 @@ RUN conda clean --all --yes
 
 RUN echo 'sgeadmin:sgeadmin' |chpasswd
 
-
-
+ADD update_NeatSeqFlow.sh /etc/my_init.d/02_update_NeatSeqFlow.sh
+RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
 
 ############## Clean ####################
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # start my_init on execution and pass bash to runit
+
+ENV PATH /opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH
+RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH >> /etc/bashrc
+
 ENTRYPOINT ["/sbin/my_init", "--"]
 CMD ["/bin/bash"]
