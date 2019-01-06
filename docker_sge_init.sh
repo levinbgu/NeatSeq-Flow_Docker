@@ -18,17 +18,17 @@ grep -Rl "$SGE_HOST" /opt/sge/ | xargs sed -i "s/$SGE_HOST/$HOSTNAME/g"
 /etc/init.d/sgemaster.docker-sge restart
 /etc/init.d/sgeexecd.docker-sge restart
 
-qconf -aattr queue slots [$SGE_HOST=$MASTER_HOST_SLOTS] $YOURQ
-qconf -aattr queue pe_list $PE $YOURQ
+/opt/sge/bin/lx-amd64/qconf -aattr queue slots [$SGE_HOST=$MASTER_HOST_SLOTS] $YOURQ
+/opt/sge/bin/lx-amd64/qconf -aattr queue pe_list $PE $YOURQ
 
 # Update NeatSeq-Flow
-source activate NeatSeq_Flow_Tutorial
+source /opt/conda/bin/activate NeatSeq_Flow_Tutorial
 pip install git+https://github.com/bioinfo-core-BGU/neatseq-flow.git
 pip install git+https://github.com/bioinfo-core-BGU/neatseq-flow-modules.git
-source deactivate
+source /opt/conda/bin/deactivate
 
 
 # Update NeatSeq-Flow GUI
-source activate NeatSeq_Flow_GUI
+source /opt/conda/bin/activate NeatSeq_Flow_GUI
 pip install git+https://github.com/bioinfo-core-BGU/NeatSeq-Flow-GUI.git
 #source deactivate
