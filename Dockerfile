@@ -37,6 +37,7 @@ ADD sge_auto_install.conf /root/sge_auto_install.conf
 ADD docker_sge_init.sh /etc/my_init.d/01_docker_sge_init.sh
 ADD sge_exec_host.conf /root/sge_exec_host.conf
 ADD sge_queue.conf /root/sge_queue.conf
+ADD pe_shared.conf /root/pe_shared.conf
 RUN chmod ug+x /etc/my_init.d/01_docker_sge_init.sh
 
 # change to home directory
@@ -65,11 +66,11 @@ RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
 RUN ./inst_sge -m -x -s -auto ~/sge_auto_install.conf \
-&& /etc/my_init.d/01_docker_sge_init.sh && sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf \
-&& /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers \
-&& /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf \
-&& /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf
-
+    && /etc/my_init.d/01_docker_sge_init.sh && sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf \
+    && /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers \
+    && /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf \
+    && /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf \
+    && /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf 
 
 # return to home directory
 WORKDIR $HOME
@@ -101,8 +102,8 @@ ENV PATH /opt/conda/bin:$PATH
 RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
 RUN apt-get install -y firefox x-window-system dbus-x11
 
-RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/neatseq-flow-tutorial/master/NeatSeq_Flow_Tutorial_Install.yaml
-RUN conda env create -f NeatSeq_Flow_Tutorial_Install.yaml
+RUN wget http://neatseq-flow.readthedocs.io/en/latest/extra/NeatSeq_Flow_conda_env.yaml
+RUN conda env create -f NeatSeq_Flow_conda_env.yaml
 
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
 RUN conda env create -f NeatSeq_Flow_GUI_installer.yaml
