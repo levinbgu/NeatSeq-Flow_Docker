@@ -1,9 +1,6 @@
 ############## SGE From gawbul/docker-sge ####################
 FROM phusion/baseimage:0.9.15
 
-# maintained by me
-MAINTAINER Steve Moss <gawbul@gmail.com>
-
 # expose ports
 EXPOSE 6444
 EXPOSE 6445
@@ -32,7 +29,6 @@ RUN apt-get update -y
 RUN apt-get install -y wget darcs git mercurial tcsh build-essential automake autoconf openssl libssl-dev munge libmunge2 libmunge-dev libjemalloc1 libjemalloc-dev db5.3-util libdb-dev libncurses5 libncurses5-dev libpam0g libpam0g-dev libpacklib-lesstif1-dev libmotif-dev libxmu-dev libxpm-dev hwloc libhwloc-dev openjdk-7-jre openjdk-7-jdk ant ant-optional javacc junit libswing-layout-java libxft2 libxft-dev libreadline-dev man gawk
 
 # add files to container from local directory
-ADD izpack_auto_install.xml /root/izpack_auto_install.xml
 ADD sge_auto_install.conf /root/sge_auto_install.conf
 ADD docker_sge_init.sh /etc/my_init.d/01_docker_sge_init.sh
 ADD sge_exec_host.conf /root/sge_exec_host.conf
