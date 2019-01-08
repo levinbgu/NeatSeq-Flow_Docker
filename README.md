@@ -1,7 +1,7 @@
 NeatSeq-Flow Docker
 =====================
 
-<img align="left" src="https://raw.githubusercontent.com/levinbgu/NeatSeq-Flow_Docker/master/logo.png" width="50">
+<img align="left" src="https://raw.githubusercontent.com/levinbgu/NeatSeq-Flow_Docker/master/logo.png" width="150">
 
 The NeatSeq-Flow Platform Including: SGE, Conda and SSH in One Docker Container.
 
