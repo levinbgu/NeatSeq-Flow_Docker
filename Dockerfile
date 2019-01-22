@@ -122,7 +122,11 @@ RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd
 RUN echo source activate NeatSeq_Flow_GUI >> /home/sgeadmin/.bashrc
 
 USER sgeadmin
+
 RUN mkdir -p /home/sgeadmin/.local/share/
 
+USER root
+
 ENTRYPOINT ["/sbin/my_init", "--"]
+
 CMD ["/bin/bash"]
