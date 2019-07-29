@@ -101,8 +101,8 @@ RUN apt-get install -y firefox x-window-system dbus-x11
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/neatseq-flow-tutorial/master/NeatSeq_Flow_Tutorial_Install.yaml
 RUN conda env create -f NeatSeq_Flow_Tutorial_Install.yaml
 
-RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
-RUN conda env create -f NeatSeq_Flow_GUI_installer.yaml
+RUN wget http://neatseq-flow.readthedocs.io/en/latest/extra/NeatSeq_Flow_conda_env.yaml
+RUN conda env create -n NeatSeq_Flow -f NeatSeq_Flow_conda_env.yaml
 
 RUN conda clean --all --yes
 
@@ -119,7 +119,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ENV PATH /opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH
 RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH >> /etc/bashrc
 
-RUN echo source activate NeatSeq_Flow_GUI >> /home/sgeadmin/.bashrc
+RUN echo source activate NeatSeq_Flow >> /home/sgeadmin/.bashrc
 
 USER sgeadmin
 
