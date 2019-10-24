@@ -1,4 +1,4 @@
-############## SGE From gawbul/docker-sge ####################
+############## SGE From gawbul/docker-sge #####################
 FROM phusion/baseimage:0.9.15
 
 # expose ports
