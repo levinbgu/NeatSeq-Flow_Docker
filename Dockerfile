@@ -5,6 +5,8 @@ FROM phusion/baseimage:0.9.15
 EXPOSE 6444
 EXPOSE 6445
 EXPOSE 6446
+# Port for NeatSeq-Flow
+EXPOSE 49190
 
 # run everything as root to start with
 USER root
