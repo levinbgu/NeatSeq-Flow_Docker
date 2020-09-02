@@ -131,4 +131,4 @@ USER root
 
 ENTRYPOINT ["/sbin/my_init", "--"]
 
-CMD ["/bin/bash ;source activate NeatSeq_Flow ; NeatSeq_Flow_GUI.py --Server --PORT 49190 --UNLOCK_USER_DIR "]
+CMD ["/bin/bash ;source /usr/local/bin/activate NeatSeq_Flow ; NeatSeq_Flow_GUI.py --Server --PORT 49190 --UNLOCK_USER_DIR "]
