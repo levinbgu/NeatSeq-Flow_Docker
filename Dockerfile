@@ -111,7 +111,6 @@ RUN conda clean --all --yes
 RUN echo 'sgeadmin:sgeadmin' |chpasswd
 
 ADD update_NeatSeqFlow.sh /etc/my_init.d/02_update_NeatSeqFlow.sh
-RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
 
 ############## Clean ####################
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -124,7 +123,7 @@ RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd
 RUN echo source activate NeatSeq_Flow >> /home/sgeadmin/.bashrc
 
 USER sgeadmin
-
+RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh &
 RUN mkdir -p /home/sgeadmin/.local/share/
 
 USER root
