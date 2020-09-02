@@ -7,7 +7,6 @@ pip install --upgrade --no-deps git+https://github.com/bioinfo-core-BGU/neatseq-
 pip install --upgrade --no-deps git+https://github.com/bioinfo-core-BGU/neatseq-flow-modules.git
 pip install --upgrade --no-deps git+https://github.com/bioinfo-core-BGU/NeatSeq-Flow-GUI.git
 
-NeatSeq_Flow_GUI.py --Server --PORT 49190 --UNLOCK_USER_DIR & bash
 # source /opt/conda/bin/deactivate
 
 # source deactivate
