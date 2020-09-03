@@ -131,7 +131,5 @@ USER root
 
 ENTRYPOINT ["/sbin/my_init", "--"]
 
-USER sgeadmin
-
-CMD ["/bin/bash && NeatSeq_Flow_GUI.py --Server --PORT 49190 --UNLOCK_USER_DIR"]
+CMD ["source activate NeatSeq_Flow && NeatSeq_Flow_GUI.py --Server --PORT 49190 --UNLOCK_USER_DIR"]
 
