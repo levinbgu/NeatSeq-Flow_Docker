@@ -113,6 +113,9 @@ RUN echo 'sgeadmin:sgeadmin' |chpasswd
 ADD update_NeatSeqFlow.sh /etc/my_init.d/02_update_NeatSeqFlow.sh
 RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
 
+ADD Run_NeatSeqFlow.sh /etc/my_init.d/99_Run_NeatSeqFlow.sh
+RUN chmod ug+x /etc/my_init.d/99_Run_NeatSeqFlow.sh
+
 ############## Clean ####################
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -131,5 +134,5 @@ USER root
 
 ENTRYPOINT ["/sbin/my_init", "--"]
 
-CMD ["/bin/bash && source activate NeatSeq_Flow && NeatSeq_Flow_GUI.py --Server --PORT 49190 --UNLOCK_USER_DIR"]
+CMD ["/bin/bash"]
 
