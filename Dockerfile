@@ -132,7 +132,9 @@ RUN mkdir -p /home/sgeadmin/.local/share/
 
 USER root
 
-ENTRYPOINT ["/sbin/my_init", "--"]
+ENTRYPOINT ["/sbin/my_init"]
 
-CMD ["sh /root/Run_NeatSeqFlow.sh"]
+RUN /root/Run_NeatSeqFlow.sh
+
+# CMD ["/root/Run_NeatSeqFlow.sh"]
 
