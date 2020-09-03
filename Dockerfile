@@ -134,7 +134,5 @@ USER root
 
 ENTRYPOINT ["/sbin/my_init",'--no-kill-all-on-exit']
 
-RUN /root/Run_NeatSeqFlow.sh
-
-# CMD ["/root/Run_NeatSeqFlow.sh"]
+CMD ["/root/Run_NeatSeqFlow.sh"]
 
