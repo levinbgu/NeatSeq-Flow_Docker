@@ -132,7 +132,7 @@ RUN mkdir -p /home/sgeadmin/.local/share/
 
 USER root
 
-ENTRYPOINT ["/sbin/my_init"]
+ENTRYPOINT ["/sbin/my_init",'--no-kill-all-on-exit']
 
 RUN /root/Run_NeatSeqFlow.sh
 
