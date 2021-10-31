@@ -39,13 +39,17 @@ ADD sge_queue.conf /root/sge_queue.conf
 ADD pe_shared.conf /root/pe_shared.conf
 RUN chmod ug+x /etc/my_init.d/01_docker_sge_init.sh
 
+
 # change to home directory
 WORKDIR $HOME
 
 
 # download source tarball instead
-RUN wget -c https://arc.liv.ac.uk/downloads/SGE/releases/8.1.8/sge-8.1.8.tar.gz
-RUN tar -zxvf sge-8.1.8.tar.gz
+# RUN wget -c https://arc.liv.ac.uk/downloads/SGE/releases/8.1.8/sge-8.1.8.tar.gz
+ADD  sge-8.1.8.tar.gz /etc/my_init.d/sge-8.1.8.tar.gz
+# RUN tar -zxvf sge-8.1.8.tar.gz
+RUN tar -zxvf /etc/my_init.d/sge-8.1.8.tar.gz
+
 
 # change working directory
 WORKDIR $HOME/sge-8.1.8/source
