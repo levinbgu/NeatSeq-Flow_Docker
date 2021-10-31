@@ -138,7 +138,7 @@ EXPOSE 22
 
 USER root
 
-ENTRYPOINT ["$HOME"]
+ENTRYPOINT ["bash"]
 
 # ENTRYPOINT ["/sbin/my_init"]
 
