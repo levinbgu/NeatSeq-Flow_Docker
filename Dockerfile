@@ -108,7 +108,7 @@ RUN apt-get install -y firefox x-window-system dbus-x11
 
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/neatseq-flow-tutorial/master/NeatSeq_Flow_Tutorial_Install.yaml
 RUN conda env create -f NeatSeq_Flow_Tutorial_Install.yaml
-
+RUN echo 'test'
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
 RUN conda env create -f NeatSeq_Flow_GUI_installer.yaml
 
