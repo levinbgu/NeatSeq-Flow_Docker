@@ -46,9 +46,10 @@ WORKDIR $HOME
 
 # download source tarball instead
 # RUN wget -c https://arc.liv.ac.uk/downloads/SGE/releases/8.1.8/sge-8.1.8.tar.gz
-COPY  sge-8.1.8.tar.gz $HOME
-# RUN tar -zxvf sge-8.1.8.tar.gz
-RUN tar -zxvf $HOME/sge-8.1.8.tar.gz
+RUN wget -c https://github.com/levinbgu/NeatSeq-Flow_Docker/raw/master/sge-8.1.8.tar.gz
+# COPY  sge-8.1.8.tar.gz $HOME
+RUN tar -zxvf sge-8.1.8.tar.gz
+# RUN tar -zxvf $HOME/sge-8.1.8.tar.gz
 
 
 # change working directory
