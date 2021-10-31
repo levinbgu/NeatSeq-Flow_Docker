@@ -110,7 +110,7 @@ RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/neatseq-flow-tutoria
 RUN conda env create -f NeatSeq_Flow_Tutorial_Install.yaml
 
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
-RUN conda create -n NeatSeq_Flow -f NeatSeq_Flow_GUI_installer.yaml
+RUN conda create -f NeatSeq_Flow_GUI_installer.yaml
 
 RUN conda clean --all --yes
 
