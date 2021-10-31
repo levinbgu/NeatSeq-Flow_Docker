@@ -46,9 +46,9 @@ WORKDIR $HOME
 
 # download source tarball instead
 # RUN wget -c https://arc.liv.ac.uk/downloads/SGE/releases/8.1.8/sge-8.1.8.tar.gz
-ADD  sge-8.1.8.tar.gz $HOME
+COPY  sge-8.1.8.tar.gz $HOME
 # RUN tar -zxvf sge-8.1.8.tar.gz
-
+RUN tar -zxvf $HOME/sge-8.1.8.tar.gz
 
 
 # change working directory
