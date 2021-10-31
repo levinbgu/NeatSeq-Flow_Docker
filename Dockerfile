@@ -7,6 +7,7 @@ EXPOSE 6445
 EXPOSE 6446
 # Port for NeatSeq-Flow
 EXPOSE 49190
+EXPOSE 49191
 
 # run everything as root to start with
 USER root
