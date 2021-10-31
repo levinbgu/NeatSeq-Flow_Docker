@@ -136,9 +136,9 @@ EXPOSE 22
 
 # RUN mkdir -p /home/sgeadmin/.local/share/
 
-# USER root
+USER root
 
-# ENTRYPOINT ["/sbin/my_init"]
+ENTRYPOINT ["/sbin/my_init"]
 
 # CMD ["/root/Run_NeatSeqFlow.sh"]
 
