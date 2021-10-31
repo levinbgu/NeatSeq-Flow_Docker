@@ -69,15 +69,16 @@ RUN usermod -a -G sudo sgeadmin
 RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
-# RUN ./inst_sge -m -x -s -auto /root/sge_auto_install.conf \
-    # && /etc/my_init.d/01_docker_sge_init.sh && sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf \
-    # && /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers \
-    # && /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf \
-    # && /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf \
-    # && /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf 
+RUN ./inst_sge -m -x -s -auto /root/sge_auto_install.conf 
+# \
+#    && /etc/my_init.d/01_docker_sge_init.sh && sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf \
+#    && /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers \
+#    && /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf \
+#    && /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf \
+#    && /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf 
 
-# # return to home directory
-# WORKDIR $HOME
+# return to home directory
+WORKDIR $HOME
 
 
 
@@ -89,7 +90,7 @@ RUN echo 'root:root' |chpasswd
 RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 
-RUN mkdir /root/.ssh
+#RUN mkdir /root/.ssh
 EXPOSE 22 
 
 # ############## CONDA From conda/miniconda2 ####################
@@ -136,11 +137,10 @@ EXPOSE 22
 
 # RUN mkdir -p /home/sgeadmin/.local/share/
 
-# USER root
-
-ENTRYPOINT ["bash"]
+USER root
 
 # ENTRYPOINT ["/sbin/my_init"]
 
 # CMD ["/root/Run_NeatSeqFlow.sh"]
 
+CMD ["/usr/sbin/sshd" "-D"]
