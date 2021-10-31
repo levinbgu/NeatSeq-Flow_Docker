@@ -136,7 +136,7 @@ EXPOSE 22
 
 # RUN mkdir -p /home/sgeadmin/.local/share/
 
-USER root
+# USER root
 
 ENTRYPOINT ["bash"]
 
