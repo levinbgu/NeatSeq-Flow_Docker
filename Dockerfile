@@ -69,12 +69,12 @@ RUN usermod -a -G sudo sgeadmin
 RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
-RUN ./inst_sge -m -x -s -auto /root/sge_auto_install.conf  \
-   && /etc/my_init.d/01_docker_sge_init.sh && sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf \
-   && /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers \
-   && /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf \
-   && /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf \
-   && /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf ; exit 0
+# RUN ./inst_sge -m -x -s -auto /root/sge_auto_install.conf  \
+   # && /etc/my_init.d/01_docker_sge_init.sh && sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf \
+   # && /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers \
+   # && /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf \
+   # && /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf \
+   # && /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf ; exit 0
 
 # return to home directory
 WORKDIR $HOME
@@ -92,35 +92,35 @@ RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 #RUN mkdir /root/.ssh
 EXPOSE 22 
 
-############## CONDA From conda/miniconda2 ####################
-RUN apt-get -qq -y install curl bzip2 \
-    && curl -sSL https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
-    && bash /tmp/miniconda.sh -bfp /usr/local \
-    && rm -rf /tmp/miniconda.sh \
-    && conda install -y python=2 
+# ############## CONDA From conda/miniconda2 ####################
+# RUN apt-get -qq -y install curl bzip2 \
+    # && curl -sSL https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
+    # && bash /tmp/miniconda.sh -bfp /usr/local \
+    # && rm -rf /tmp/miniconda.sh \
+    # && conda install -y python=2 
     
-ENV PATH /opt/conda/bin:$PATH
+# ENV PATH /opt/conda/bin:$PATH
 
 ############## For NeatSeq-Flow ####################
 
 RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
-RUN apt-get install -y firefox x-window-system dbus-x11
+# RUN apt-get install -y firefox x-window-system dbus-x11
 
-RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/neatseq-flow-tutorial/master/NeatSeq_Flow_Tutorial_Install.yaml
-RUN conda env create -f NeatSeq_Flow_Tutorial_Install.yaml
-RUN echo 'test'
-RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
-RUN conda env create -f NeatSeq_Flow_GUI_installer.yaml
+# RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/neatseq-flow-tutorial/master/NeatSeq_Flow_Tutorial_Install.yaml
+# RUN conda env create -f NeatSeq_Flow_Tutorial_Install.yaml
+# RUN echo 'test'
+# RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
+# RUN conda env create -f NeatSeq_Flow_GUI_installer.yaml
 
-RUN conda clean --all --yes
+# RUN conda clean --all --yes
 
-RUN echo 'sgeadmin:sgeadmin' |chpasswd
+# RUN echo 'sgeadmin:sgeadmin' |chpasswd
 
-ADD update_NeatSeqFlow.sh /etc/my_init.d/02_update_NeatSeqFlow.sh
-RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
+# ADD update_NeatSeqFlow.sh /etc/my_init.d/02_update_NeatSeqFlow.sh
+# RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
 
-ADD Run_NeatSeqFlow.sh /root/Run_NeatSeqFlow.sh
-RUN chmod ug+x /root/Run_NeatSeqFlow.sh
+# ADD Run_NeatSeqFlow.sh /root/Run_NeatSeqFlow.sh
+# RUN chmod ug+x /root/Run_NeatSeqFlow.sh
 
 ############## Clean ####################
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
