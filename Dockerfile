@@ -91,7 +91,7 @@ RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 
 #RUN mkdir /root/.ssh
 EXPOSE 22 
-RUN echo 'test'
+#RUN echo 'test'
 
 # ############## CONDA From conda/miniconda2 ####################
 # RUN apt-get -qq -y install curl bzip2 \
@@ -139,8 +139,8 @@ RUN echo 'test'
 
 USER root
 
-# ENTRYPOINT ["/sbin/my_init"]
+ENTRYPOINT ["/sbin/my_init"]
 
 # CMD ["/root/Run_NeatSeqFlow.sh"]
 
-CMD ["bash"]
+CMD ["sh"]
