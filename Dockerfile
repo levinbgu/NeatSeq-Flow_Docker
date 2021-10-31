@@ -138,7 +138,9 @@ EXPOSE 22
 
 USER root
 
-ENTRYPOINT ["/sbin/my_init"]
+ENTRYPOINT ["$HOME"]
+
+# ENTRYPOINT ["/sbin/my_init"]
 
 # CMD ["/root/Run_NeatSeqFlow.sh"]
 
