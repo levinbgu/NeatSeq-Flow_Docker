@@ -69,12 +69,12 @@ RUN usermod -a -G sudo sgeadmin
 RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
-# RUN ./inst_sge -m -x -s -auto /root/sge_auto_install.conf  \
-   # && /etc/my_init.d/01_docker_sge_init.sh && sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf \
-   # && /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers \
-   # && /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf \
-   # && /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf \
-   # && /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf ; exit 0
+RUN ./inst_sge -m -x -s -auto /root/sge_auto_install.conf  \
+   && /etc/my_init.d/01_docker_sge_init.sh && sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf \
+   && /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers \
+   && /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf \
+   && /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf \
+   && /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf ; exit 0
 
 # return to home directory
 WORKDIR $HOME
@@ -114,7 +114,7 @@ RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
 
 # RUN conda clean --all --yes
 
-# RUN echo 'sgeadmin:sgeadmin' |chpasswd
+RUN echo 'sgeadmin:sgeadmin' |chpasswd
 
 # ADD update_NeatSeqFlow.sh /etc/my_init.d/02_update_NeatSeqFlow.sh
 # RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
@@ -130,7 +130,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ENV PATH /opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH
 RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH >> /etc/bashrc
 
-RUN echo source activate NeatSeq_Flow >> /home/sgeadmin/.bashrc
+# RUN echo source activate NeatSeq_Flow >> /home/sgeadmin/.bashrc
 
 USER sgeadmin
 
