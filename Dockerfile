@@ -73,6 +73,8 @@ ENV PATH /opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH
 RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH >> /etc/bashrc
 RUN cat /opt/sge/inst_sge > /opt/sge/inst_sge.sh
 RUN chmod 777 /opt/sge/inst_sge.sh
+
+RUN echo 'sgeadmin:sgeadmin' |chpasswd
 RUN ["/opt/sge/inst_sge.sh","-m","-x", "-s", "-auto", "/root/sge_auto_install.conf"]  #; exit 0
 # RUN /etc/my_init.d/01_docker_sge_init.sh
 # RUN sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
@@ -119,7 +121,6 @@ RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
 
 # RUN conda clean --all --yes
 
-RUN echo 'sgeadmin:sgeadmin' |chpasswd
 
 # ADD update_NeatSeqFlow.sh /etc/my_init.d/02_update_NeatSeqFlow.sh
 # RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
