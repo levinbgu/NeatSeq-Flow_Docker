@@ -70,12 +70,12 @@ RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
 RUN ./inst_sge -m -x -s -auto /root/sge_auto_install.conf  ; exit 0
-RUN /etc/my_init.d/01_docker_sge_init.sh
-RUN sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
-RUN /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers
-RUN /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf
-RUN /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf
-RUN /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf
+# RUN /etc/my_init.d/01_docker_sge_init.sh
+# RUN sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
+# RUN /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers
+# RUN /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf
+# RUN /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf
+# RUN /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf
 
 # return to home directory
 WORKDIR $HOME
