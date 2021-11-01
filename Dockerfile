@@ -76,7 +76,7 @@ ENV SHLVL 1
 ENV PATH /opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH
 RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH >> /etc/bashrc
 
-RUN ["/bin/bash", "/opt/sge/inst_sge -m -x -s -auto /root/sge_auto_install.conf"]  #; exit 0
+RUN ["", "/opt/sge/inst_sge -m -x -s -auto /root/sge_auto_install.conf"]  #; exit 0
 # RUN /etc/my_init.d/01_docker_sge_init.sh
 # RUN sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
 # RUN /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers
