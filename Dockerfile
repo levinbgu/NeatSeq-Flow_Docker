@@ -70,7 +70,7 @@ RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
 RUN chmod ug+x inst_sge
-RUN bash --version > out 2>error
+RUN env > out 2>error
 #RUN /opt/sge/inst_sge -m -x -s -auto /root/sge_auto_install.conf > out 2>error ; exit 0
 # RUN /etc/my_init.d/01_docker_sge_init.sh
 # RUN sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
