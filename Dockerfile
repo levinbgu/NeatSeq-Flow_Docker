@@ -33,11 +33,11 @@ RUN apt-get install -y wget darcs git mercurial tcsh build-essential automake au
 
 # add files to container from local directory
 ADD sge_auto_install.conf /root/sge_auto_install.conf
-ADD docker_sge_init.sh /etc/my_init.d/01_docker_sge_init.sh
+#ADD docker_sge_init.sh /etc/my_init.d/01_docker_sge_init.sh
 ADD sge_exec_host.conf /root/sge_exec_host.conf
 ADD sge_queue.conf /root/sge_queue.conf
 ADD pe_shared.conf /root/pe_shared.conf
-RUN chmod ug+x /etc/my_init.d/01_docker_sge_init.sh
+#RUN chmod ug+x /etc/my_init.d/01_docker_sge_init.sh
 
 
 # change to home directory
@@ -70,9 +70,8 @@ RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
 #RUN ./inst_sge -m -x -s -rsh -auto /root/sge_auto_install.conf  #; exit 0
-CMD ["./inst_sge -m -x -s -rsh -auto /root/sge_auto_install.conf"]
 # RUN cat /opt/sge/default/common/install_logs/*
-RUN /etc/my_init.d/01_docker_sge_init.sh
+# RUN /etc/my_init.d/01_docker_sge_init.sh
 # RUN sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
 # RUN /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers
 # RUN /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf
