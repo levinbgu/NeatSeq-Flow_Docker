@@ -69,8 +69,8 @@ RUN usermod -a -G sudo sgeadmin
 RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
-RUN ./inst_sge -m -x -s -rsh -auto /root/sge_auto_install.conf  ; exit 0
-RUN cat /opt/sge/default/common/install_logs/*
+#RUN ./inst_sge -m -x -s -rsh -auto /root/sge_auto_install.conf  #; exit 0
+# RUN cat /opt/sge/default/common/install_logs/*
 # RUN /etc/my_init.d/01_docker_sge_init.sh
 # RUN sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
 # RUN /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers
@@ -139,7 +139,7 @@ USER sgeadmin
 RUN mkdir -p /home/sgeadmin/.local/share/
 
 USER root
-
+RUN ./inst_sge -m -x -s -rsh -auto /root/sge_auto_install.conf
 ENTRYPOINT ["/sbin/my_init"]
 
 # CMD ["/root/Run_NeatSeqFlow.sh"]
