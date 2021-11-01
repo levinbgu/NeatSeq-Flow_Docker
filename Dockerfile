@@ -70,9 +70,9 @@ RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
 RUN chmod ug+x /opt/sge/inst_sge
-ENV SHELL /bin/bash
-ENV USER root
-ENV SHLVL 1
+# ENV SHELL /bin/bash
+# ENV USER root
+# ENV SHLVL 1
 ENV PATH /opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH
 RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH >> /etc/bashrc
 
