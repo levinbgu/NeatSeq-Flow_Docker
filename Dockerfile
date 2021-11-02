@@ -31,18 +31,8 @@ RUN apt-get update -y
 #RUN apt-get upgrade -y
 RUN apt-get install -y wget darcs git mercurial tcsh build-essential automake autoconf openssl libssl-dev munge libmunge2 libmunge-dev libjemalloc1 libjemalloc-dev db5.3-util libdb-dev libncurses5 libncurses5-dev libpam0g libpam0g-dev libpacklib-lesstif1-dev libmotif-dev libxmu-dev libxpm-dev hwloc libhwloc-dev openjdk-7-jre openjdk-7-jdk ant ant-optional javacc junit libswing-layout-java libxft2 libxft-dev libreadline-dev man gawk
 
-# add files to container from local directory
-ADD sge_auto_install.conf /root/sge_auto_install.conf
-ADD docker_sge_init.sh /etc/my_init.d/01_docker_sge_init.sh
-ADD sge_exec_host.conf /root/sge_exec_host.conf
-ADD sge_queue.conf /root/sge_queue.conf
-ADD pe_shared.conf /root/pe_shared.conf
-RUN chmod ug+x /etc/my_init.d/01_docker_sge_init.sh
-
-
 # change to home directory
 WORKDIR $HOME
-
 
 # download source tarball instead
 # RUN wget -c https://arc.liv.ac.uk/downloads/SGE/releases/8.1.8/sge-8.1.8.tar.gz
@@ -50,7 +40,6 @@ RUN wget -c https://github.com/levinbgu/NeatSeq-Flow_Docker/raw/master/sge-8.1.8
 # COPY  sge-8.1.8.tar.gz $HOME
 RUN tar -zxvf sge-8.1.8.tar.gz
 # RUN tar -zxvf $HOME/sge-8.1.8.tar.gz
-
 
 # change working directory
 WORKDIR $HOME/sge-8.1.8/source
@@ -68,11 +57,24 @@ RUN useradd -r -m -U -d /home/sgeadmin -s /bin/bash -c "Docker SGE Admin" sgeadm
 RUN usermod -a -G sudo sgeadmin
 RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
-WORKDIR $SGE_ROOT
 ENV PATH /opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH
 RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH >> /etc/bashrc
 RUN cat /opt/sge/inst_sge > /opt/sge/inst_sge.sh
 RUN chmod 777 /opt/sge/inst_sge.sh
+
+# WORKDIR $SGE_ROOT
+
+# add files to container from local directory
+ADD sge_auto_install.conf /root/sge_auto_install.conf
+ADD docker_sge_init.sh /etc/my_init.d/01_docker_sge_init.sh
+ADD sge_exec_host.conf /root/sge_exec_host.conf
+ADD sge_queue.conf /root/sge_queue.conf
+ADD pe_shared.conf /root/pe_shared.conf
+RUN chmod ug+x /etc/my_init.d/01_docker_sge_init.sh
+
+
+
+
 # RUN sh inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf  #; exit 0
 # RUN /etc/my_init.d/01_docker_sge_init.sh
 # RUN sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
