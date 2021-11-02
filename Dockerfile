@@ -69,6 +69,7 @@ RUN usermod -a -G sudo sgeadmin
 RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
+ENV HOSTNAME HOSTNAME
 ENV TERM xterm
 ENV SHELL /bin/bash
 ENV PATH /opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH
