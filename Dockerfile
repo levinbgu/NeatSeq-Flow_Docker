@@ -144,6 +144,7 @@ RUN mkdir -p /home/sgeadmin/.local/share/
 USER root
 
 ENTRYPOINT ["/sbin/my_init"]
+WORKDIR $SGE_ROOT
 RUN ["/bin/sh","-c","/opt/sge/inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf"]  #; exit 0
 # CMD ["/root/Run_NeatSeqFlow.sh"]
 
