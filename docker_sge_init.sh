@@ -3,7 +3,7 @@
 
 YOURQ=all.q
 MASTER_HOST_SLOTS=$(nproc)
-
+HOME=/root
  cd $SGE_ROOT
     ./inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf
     sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
