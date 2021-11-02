@@ -4,8 +4,7 @@
 YOURQ=all.q
 MASTER_HOST_SLOTS=$(nproc)
 
-if ! command -v qstat &> /dev/null
-then
+if ! [ -x "$(command -v qstat)" ]; then
     cd $SGE_ROOT
     ./inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf
     sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
