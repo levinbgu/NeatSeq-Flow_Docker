@@ -4,25 +4,15 @@
 YOURQ=all.q
 MASTER_HOST_SLOTS=$(nproc)
 HOME=/root
- cd $SGE_ROOT
-    ./inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf
-    sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
-    /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers
-    /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf
-    /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf
-    /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf
-
-
-# if ! [ -x "$(command -v qstat)" ]; then
-    # cd $SGE_ROOT
-    # ./inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf
-    # sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
-    # /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers
-    # /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf
-    # /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf
-    # /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf
-# fi
-
+if ! [ -x "$(command -v qstat2)" ]; then
+  cd $SGE_ROOT
+  ./inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf
+  sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
+  /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers
+  /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf
+  /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf
+  /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf
+fi
 
 # get stored SGE hostname
 export SGE_HOST=`cat /opt/sge/default/common/act_qmaster`
