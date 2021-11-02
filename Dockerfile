@@ -63,6 +63,7 @@ RUN echo export SGE_CELL=default >> /etc/bashrc
 RUN ln -s $SGE_ROOT/$SGE_CELL/common/settings.sh /etc/profile.d/sge_settings.sh
 
 # install SGE
+ENV HOSTNAME `hostname`
 RUN mkdir /opt/sge
 RUN useradd -r -m -U -d /home/sgeadmin -s /bin/bash -c "Docker SGE Admin" sgeadmin
 RUN usermod -a -G sudo sgeadmin
