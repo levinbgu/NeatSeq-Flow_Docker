@@ -63,20 +63,19 @@ RUN echo export SGE_CELL=default >> /etc/bashrc
 RUN ln -s $SGE_ROOT/$SGE_CELL/common/settings.sh /etc/profile.d/sge_settings.sh
 
 # install SGE
-ENV HOSTNAME `hostname`
-ENV SHELL /bin/bash
-
 RUN mkdir /opt/sge
 RUN useradd -r -m -U -d /home/sgeadmin -s /bin/bash -c "Docker SGE Admin" sgeadmin
 RUN usermod -a -G sudo sgeadmin
 RUN sh scripts/bootstrap.sh && ./aimk && ./aimk -man
 RUN echo Y | ./scripts/distinst -local -allall -libs -noexit
 WORKDIR $SGE_ROOT
+ENV HOSTNAME `hostname`
+ENV SHELL /bin/bash
 ENV PATH /opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH
 RUN echo export PATH=/opt/sge/bin:/opt/sge/bin/lx-amd64/:/opt/sge/utilbin/lx-amd64:$PATH >> /etc/bashrc
 RUN cat /opt/sge/inst_sge > /opt/sge/inst_sge.sh
 RUN chmod 777 /opt/sge/inst_sge.sh
-RUN ["/bin/sh","-v","-c","/opt/sge/inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf"]  #; exit 0
+
 # RUN /etc/my_init.d/01_docker_sge_init.sh
 # RUN sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
 # RUN /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers
@@ -145,7 +144,7 @@ RUN mkdir -p /home/sgeadmin/.local/share/
 USER root
 
 ENTRYPOINT ["/sbin/my_init"]
-
+RUN ["/bin/sh","-c","/opt/sge/inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf"]  #; exit 0
 # CMD ["/root/Run_NeatSeqFlow.sh"]
 
 CMD ["bash"]
