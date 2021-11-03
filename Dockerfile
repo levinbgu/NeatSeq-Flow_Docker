@@ -2,11 +2,17 @@
 FROM phusion/baseimage:0.9.15
 
 # expose ports
+# Port For SSH
+EXPOSE 22 
+# Port For SGE
 EXPOSE 6444
 EXPOSE 6445
 EXPOSE 6446
 # Port for NeatSeq-Flow
 EXPOSE 49191
+EXPOSE 49190
+
+
 
 # run everything as root to start with
 USER root
@@ -85,19 +91,16 @@ RUN chmod ug+x /etc/my_init.d/01_docker_sge_init.sh
 # return to home directory
 WORKDIR $HOME
 
-
-
-
 ############## SSH From rastasheep/ubuntu-sshd ####################
 
 RUN echo 'root:root' |chpasswd
+RUN echo 'sgeadmin:sgeadmin' |chpasswd
 
 RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 
 #RUN mkdir /root/.ssh
-EXPOSE 22 
-EXPOSE 49190
+
 ############## CONDA From conda/miniconda2 ####################
 RUN apt-get -qq -y install curl bzip2 \
     && curl -sSL https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
@@ -109,17 +112,11 @@ ENV PATH /opt/conda/bin:$PATH
 
 ############## For NeatSeq-Flow ####################
 
-RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
-# RUN apt-get install -y firefox x-window-system dbus-x11
-
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/neatseq-flow-tutorial/master/NeatSeq_Flow_Tutorial_Install.yaml
 RUN conda env create -f NeatSeq_Flow_Tutorial_Install.yaml
 
-RUN echo 'sgeadmin:sgeadmin' |chpasswd
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
 RUN conda env create -f NeatSeq_Flow_GUI_installer.yaml
-
-RUN conda clean --all --yes
 
 ADD update_NeatSeqFlow.sh /etc/my_init.d/02_update_NeatSeqFlow.sh
 RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
@@ -127,9 +124,12 @@ RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
 ADD Run_NeatSeqFlow.sh /root/Run_NeatSeqFlow.sh
 RUN chmod ug+x /root/Run_NeatSeqFlow.sh
 
-RUN apt-get install -y firefox x-window-system dbus-x11
+
+RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
+# RUN apt-get install -y firefox x-window-system dbus-x11
 ############## Clean ####################
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN conda clean --all --yes
 
 RUN echo source activate NeatSeq_Flow >> /home/sgeadmin/.bashrc
 
