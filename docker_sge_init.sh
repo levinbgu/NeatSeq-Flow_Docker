@@ -4,6 +4,7 @@
 YOURQ=all.q
 MASTER_HOST_SLOTS=$(nproc)
 HOME=/root
+pgrep -x "sge_qmaster"
 if ! pgrep -x "sge_qmaster" >/dev/null ; then
   cd $SGE_ROOT
   ./inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf;
