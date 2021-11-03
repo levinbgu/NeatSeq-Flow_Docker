@@ -140,6 +140,8 @@ RUN mkdir -p /home/sgeadmin/.local/share/
 
 USER root
 
+RUN apt-get install -y x-window-system dbus-x11
+
 ENTRYPOINT ["/sbin/my_init"]
 
 CMD ["/root/Run_NeatSeqFlow.sh"]
