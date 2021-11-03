@@ -6,7 +6,6 @@ EXPOSE 6444
 EXPOSE 6445
 EXPOSE 6446
 # Port for NeatSeq-Flow
-EXPOSE 49190
 EXPOSE 49191
 
 # run everything as root to start with
@@ -98,7 +97,7 @@ RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 
 #RUN mkdir /root/.ssh
 EXPOSE 22 
-
+EXPOSE 49190
 ############## CONDA From conda/miniconda2 ####################
 RUN apt-get -qq -y install curl bzip2 \
     && curl -sSL https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
