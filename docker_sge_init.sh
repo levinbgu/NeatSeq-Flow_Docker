@@ -6,12 +6,12 @@ MASTER_HOST_SLOTS=$(nproc)
 HOME=/root
 if ! pgrep -x "sge_qmaster" >/dev/null ; then
   cd $SGE_ROOT
-  ./inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf
-  sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf
-  /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers
-  /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf
-  /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf
-  /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf
+  ./inst_sge.sh -m -x -s -auto /root/sge_auto_install.conf;
+  sed -i "s/HOSTNAME/`hostname`/" $HOME/sge_exec_host.conf;
+  /opt/sge/bin/lx-amd64/qconf -au sgeadmin arusers;
+  /opt/sge/bin/lx-amd64/qconf -Me $HOME/sge_exec_host.conf;
+  /opt/sge/bin/lx-amd64/qconf -Aq $HOME/sge_queue.conf;
+  /opt/sge/bin/lx-amd64/qconf -Ap $HOME/pe_shared.conf;
 fi
 
 # get stored SGE hostname
