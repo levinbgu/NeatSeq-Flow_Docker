@@ -129,7 +129,7 @@ RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
 ADD Run_NeatSeqFlow.sh /root/Run_NeatSeqFlow.sh
 RUN chmod ug+x /root/Run_NeatSeqFlow.sh
 
-RUN apt-get install -y x-window-system dbus-x11
+RUN apt-get install -y firefox x-window-system dbus-x11
 ############## Clean ####################
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
