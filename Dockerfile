@@ -110,6 +110,11 @@ RUN apt-get -qq -y install curl bzip2 \
     
 ENV PATH /opt/conda/bin:$PATH
 
+############## For X11 ####################
+
+RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
+# RUN apt-get install -y firefox x-window-system dbus-x11
+
 ############## For NeatSeq-Flow ####################
 
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/neatseq-flow-tutorial/master/NeatSeq_Flow_Tutorial_Install.yaml
@@ -124,9 +129,6 @@ RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
 ADD Run_NeatSeqFlow.sh /root/Run_NeatSeqFlow.sh
 RUN chmod ug+x /root/Run_NeatSeqFlow.sh
 
-
-RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
-# RUN apt-get install -y firefox x-window-system dbus-x11
 ############## Clean ####################
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN conda clean --all --yes
