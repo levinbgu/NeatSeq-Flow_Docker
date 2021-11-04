@@ -120,14 +120,15 @@ RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
 RUN conda env create -f NeatSeq_Flow_GUI_installer.yaml
 
+
+ADD Run_NeatSeqFlow.sh /root/Run_NeatSeqFlow.sh
+RUN chmod ug+x /root/Run_NeatSeqFlow.sh
+
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/neatseq-flow-tutorial/master/NeatSeq_Flow_Tutorial_Install.yaml
 RUN conda env create -f NeatSeq_Flow_Tutorial_Install.yaml
 
 ADD update_NeatSeqFlow.sh /etc/my_init.d/02_update_NeatSeqFlow.sh
 RUN chmod ug+x /etc/my_init.d/02_update_NeatSeqFlow.sh
-
-ADD Run_NeatSeqFlow.sh /root/Run_NeatSeqFlow.sh
-RUN chmod ug+x /root/Run_NeatSeqFlow.sh
 
 ############## Clean ####################
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
