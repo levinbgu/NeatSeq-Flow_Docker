@@ -119,7 +119,7 @@ RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
 
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
 RUN conda env create -f NeatSeq_Flow_GUI_installer.yaml
-RUN echo test
+RUN echo test2
 ADD Run_NeatSeqFlow.sh /root/Run_NeatSeqFlow.sh
 RUN chmod ug+x /root/Run_NeatSeqFlow.sh
 
