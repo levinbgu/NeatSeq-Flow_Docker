@@ -117,10 +117,10 @@ RUN sed -ri 's/#X11UseLocalhost yes/X11UseLocalhost no/g' /etc/ssh/sshd_config
 
 ############## For NeatSeq-Flow ####################
 
-# RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
-# RUN conda env create -f NeatSeq_Flow_GUI_installer.yaml
+RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/NeatSeq-Flow-GUI/master/NeatSeq_Flow_GUI_installer.yaml
+RUN conda env create -f NeatSeq_Flow_GUI_installer.yaml
 
-RUN conda env create levinl/neatseq_flow
+# RUN conda env create levinl/neatseq_flow
 
 RUN wget https://raw.githubusercontent.com/bioinfo-core-BGU/neatseq-flow-tutorial/master/NeatSeq_Flow_Tutorial_Install.yaml
 RUN conda env create -f NeatSeq_Flow_Tutorial_Install.yaml
